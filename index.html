@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Security Scan</title>
+    <script>
+        function checkSecurity() {
+            // Check for outdated jQuery library
+            if (typeof jQuery !== 'undefined') {
+                var jqueryVersion = jQuery.fn.jquery;
+                if (jqueryVersion < '3.0.0') {
+                    alert('Outdated jQuery library detected (Version ' + jqueryVersion + '). Update to a more recent version.');
+                }
+            }
+
+            // Check for potentially vulnerable scripts
+            var potentiallyVulnerableScripts = ['jquery.min.js', 'crypto.js', 'eval.js'];
+            var scripts = document.getElementsByTagName('script');
+            for (var i = 0; i < scripts.length; i++) {
+                var scriptSrc = scripts[i].getAttribute('src');
+                if (scriptSrc) {
+                    for (var j = 0; j < potentiallyVulnerableScripts.length; j++) {
+                        if (scriptSrc.includes(potentiallyVulnerableScripts[j])) {
+                            alert('Potentially vulnerable script detected: ' + scriptSrc);
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Website Security Scan</h1>
+    <button onclick="checkSecurity()">Start Security Scan</button>
+</body>
+</html>

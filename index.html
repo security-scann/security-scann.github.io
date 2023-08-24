@@ -4,34 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Security Scan</title>
-    <script>
-        function checkSecurity() {
-            // Check for outdated jQuery library
-            if (typeof jQuery !== 'undefined') {
-                var jqueryVersion = jQuery.fn.jquery;
-                if (jqueryVersion < '3.0.0') {
-                    alert('Outdated jQuery library detected (Version ' + jqueryVersion + '). Update to a more recent version.');
-                }
-            }
-
-            // Check for potentially vulnerable scripts
-            var potentiallyVulnerableScripts = ['jquery.min.js', 'crypto.js', 'eval.js'];
-            var scripts = document.getElementsByTagName('script');
-            for (var i = 0; i < scripts.length; i++) {
-                var scriptSrc = scripts[i].getAttribute('src');
-                if (scriptSrc) {
-                    for (var j = 0; j < potentiallyVulnerableScripts.length; j++) {
-                        if (scriptSrc.includes(potentiallyVulnerableScripts[j])) {
-                            alert('Potentially vulnerable script detected: ' + scriptSrc);
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body>
     <h1>Website Security Scan</h1>
-    <button onclick="checkSecurity()">Start Security Scan</button>
+    <button id="scanButton">Start Scan</button>
+    <div id="results"></div>
+
+    <script>
+        const scanButton = document.getElementById('scanButton');
+        const resultsDiv = document.getElementById('results');
+
+        scanButton.addEventListener('click', async () => {
+            try {
+                resultsDiv.innerHTML = 'Scanning...';
+
+                // Simulate a security scan using a timeout
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Simulate scan results
+                const vulnerabilities = ['Cross-site Scripting (XSS)', 'SQL Injection', 'Insecure HTTP Headers'];
+
+                resultsDiv.innerHTML = '<h2>Scan Results:</h2>';
+                if (vulnerabilities.length === 0) {
+                    resultsDiv.innerHTML += '<p>No vulnerabilities found. Your website is secure!</p>';
+                } else {
+                    resultsDiv.innerHTML += '<p>Vulnerabilities detected:</p>';
+                    const ul = document.createElement('ul');
+                    vulnerabilities.forEach(vulnerability => {
+                        const li = document.createElement('li');
+                        li.textContent = vulnerability;
+                        ul.appendChild(li);
+                    });
+                    resultsDiv.appendChild(ul);
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = 'An error occurred during scanning.';
+            }
+        });
+    </script>
 </body>
 </html>

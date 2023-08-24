@@ -3,42 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Security Scan</title>
+    <title>Website Scanner</title>
 </head>
 <body>
-    <h1>Website Security Scan</h1>
-    <button id="scanButton">Start Scan</button>
-    <div id="results"></div>
+    <h1>Website Scanner</h1>
+    <input type="text" id="websiteUrl" placeholder="Enter website URL">
+    <button id="scanButton">Scan</button>
+    <div id="scanResults"></div>
 
     <script>
-        const scanButton = document.getElementById('scanButton');
-        const resultsDiv = document.getElementById('results');
+        document.getElementById("scanButton").addEventListener("click", async () => {
+            const websiteUrl = document.getElementById("websiteUrl").value;
+            const scanResultsDiv = document.getElementById("scanResults");
 
-        scanButton.addEventListener('click', async () => {
+            scanResultsDiv.innerHTML = "Scanning...";
+
             try {
-                resultsDiv.innerHTML = 'Scanning...';
+                const response = await fetch(`/scan?url=${encodeURIComponent(websiteUrl)}`);
+                const data = await response.json();
 
-                // Simulate a security scan using a timeout
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                scanResultsDiv.innerHTML = `
+                    <h2>Scan Results:</h2>
+                    <p>URL: ${data.url}</p>
+                    <p>Status Code: ${data.statusCode}</p>
+                `;
 
-                // Simulate scan results
-                const vulnerabilities = ['Cross-site Scripting (XSS)', 'SQL Injection', 'Insecure HTTP Headers'];
-
-                resultsDiv.innerHTML = '<h2>Scan Results:</h2>';
-                if (vulnerabilities.length === 0) {
-                    resultsDiv.innerHTML += '<p>No vulnerabilities found. Your website is secure!</p>';
+                if (data.statusCode === 200) {
+                    scanResultsDiv.innerHTML += "<p>The website is up and running.</p>";
                 } else {
-                    resultsDiv.innerHTML += '<p>Vulnerabilities detected:</p>';
-                    const ul = document.createElement('ul');
-                    vulnerabilities.forEach(vulnerability => {
-                        const li = document.createElement('li');
-                        li.textContent = vulnerability;
-                        ul.appendChild(li);
-                    });
-                    resultsDiv.appendChild(ul);
+                    scanResultsDiv.innerHTML += "<p>The website returned an unexpected status code.</p>";
                 }
             } catch (error) {
-                resultsDiv.innerHTML = 'An error occurred during scanning.';
+                scanResultsDiv.innerHTML = `An error occurred: ${error}`;
             }
         });
     </script>

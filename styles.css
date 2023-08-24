@@ -35,3 +35,15 @@ main {
     padding: 1rem;
     border: 1px solid #ddd;
 }
+
+.support-section {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f3f3f3;
+}
+.support-section a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}

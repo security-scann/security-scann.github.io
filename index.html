@@ -3,55 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Website</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .menu {
-            background-color: #444;
-            color: #fff;
-            text-align: center;
-            padding: 0.5rem;
-        }
-
-        .content {
-            padding: 2rem;
-        }
-
-        @media screen and (max-width: 600px) {
-            .menu {
-                display: block;
-            }
-        }
-    </style>
+    <title>Site Scanner</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Responsive Website</h1>
-    </div>
-
-    <div class="menu">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
-
-    <div class="content">
-        <h2>Welcome to Our Website</h2>
-        <p>This is an example of a responsive website layout.</p>
-    </div>
+    <header>
+        <h1>Website Scanner</h1>
+    </header>
+    <main>
+        <section class="scan-section">
+            <h2>Enter a URL to Scan:</h2>
+            <input type="text" id="urlInput" placeholder="Enter a URL">
+            <button id="scanButton">Scan</button>
+        </section>
+        <section class="results-section" id="resultsSection">
+            <h2>Scan Results:</h2>
+            <div id="scanResults"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
 </body>
 </html>
